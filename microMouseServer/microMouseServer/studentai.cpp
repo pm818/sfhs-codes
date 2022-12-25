@@ -22,5 +22,7 @@ void microMouseServer::studentAI()
  * void printUI(const char *mesg);
 */
  bool isWallLeft();
+ bool isWallRight();
+ bool isWallForward();
 
 }
