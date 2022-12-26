@@ -503,13 +503,3 @@ void microMouseServer::turnRight()
     }
 }
 
-int microMouseServer::incRightTurnCount()
-{
-    return(counter=counter+1);
-}
-
-void microMouseServer::resetRightTurnCount()
-{
-    counter = 0;
-}
-
