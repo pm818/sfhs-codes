@@ -25,6 +25,10 @@ class microMouseServer : public QMainWindow
 public:
     explicit microMouseServer(QWidget *parent = 0);
     ~microMouseServer();
+    int counter = 0; // PM
+    int counter2 = 0;
+    int counter3 = 0;
+    int counter4 = 0;
 
 private slots:
     void on_tabWidget_tabBarClicked(int index);
@@ -53,6 +57,8 @@ private:
     void turnRight();
     void foundFinish();
     void printUI(const char *mesg);
+    int incRightTurnCount(); //
+    void resetRightTurnCount(); //
 
     QTimer *_comTimer;
     QTimer *_aiCallTimer;
@@ -63,6 +69,7 @@ private:
     struct baseMapNode mazeData[MAZE_WIDTH][MAZE_HEIGHT];
     void connectSignals();
     void initMaze();
+
 };
 
 #endif // MICROMOUSESERVER_H

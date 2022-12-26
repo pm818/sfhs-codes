@@ -378,6 +378,7 @@ bool microMouseServer::isWallForward()
 
     return true;
 }
+
 bool microMouseServer::isWallLeft()
 {
     baseMapNode *mover = &this->mazeData[this->maze->mouseX()-1][this->maze->mouseY()-1];
@@ -502,4 +503,13 @@ void microMouseServer::turnRight()
     }
 }
 
+int microMouseServer::incRightTurnCount()
+{
+    return(counter=counter+1);
+}
+
+void microMouseServer::resetRightTurnCount()
+{
+    counter = 0;
+}
 
