@@ -229,6 +229,7 @@ void microMouseServer::initMaze()
     {
         for(int x = 0; x < MAZE_WIDTH; x++)
         {
+            posStatus[x][y] = 0;
             baseMapNode *mover = &this->mazeData[x][y];
             mover->setXY(x+1,y+1);
             if(x == 0)
@@ -502,4 +503,16 @@ void microMouseServer::turnRight()
         break;
     }
 }
+
+microMouseServer::values microMouseServer::getValues(int row, int column)
+{
+    values retvals;
+
+    retvals.top = this->mazeData[row][column].isWallTop();
+    retvals.bottom = this->mazeData[row][column].isWallBottom();
+    retvals.left = this->mazeData[row][column].isWallLeft();
+    retvals.right = this->mazeData[row][column].isWallRight();
+
+    return(retvals);
+ }
 

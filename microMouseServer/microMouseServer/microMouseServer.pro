@@ -16,7 +16,7 @@ SOURCES += mazegui.cpp\
         main.cpp \
         micromouseserver.cpp \
     mazeBase.cpp \
-    studentai.cpp
+    studentai-phase2.cpp
 
 
 HEADERS  += micromouseserver.h \
