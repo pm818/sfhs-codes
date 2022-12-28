@@ -344,6 +344,8 @@ void microMouseServer::startAI()
     QPoint newPos;
     newPos.setX(1);
     newPos.setY(1);
+    this->curRow = 1;
+    this->curColumn = 1;
     this->maze->drawMouse(newPos, dUP);
     _aiCallTimer->start(MDELAY);
 }

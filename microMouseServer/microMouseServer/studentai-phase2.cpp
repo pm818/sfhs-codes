@@ -1,7 +1,9 @@
-
 #include "micromouseserver.h"
 #include<QDebug>
 #include<QThread>
+#include <QFileDialog>
+#include <QFile>
+#include <QTextStream>
 
 void microMouseServer::studentAI()
 {
@@ -26,96 +28,35 @@ void microMouseServer::studentAI()
  * void printUI(const char *mesg);
 */
 
-int row = this->curRow;
-int column = this->curColumn;
+int row = this->maze->mouseX();
+int column = this->maze->mouseY();
+this->posStatus[column][row] += 1;  // append the count for visited cell
 
-values result = getValues(column,row);
+qWarning() << "row =" << row;
+qWarning() << "column =" << column;
 
-counter = counter + 1;
+if (counter==3 && counter3==3)
+   foundFinish();
 
-if (counter < 500) {
-    qWarning() << "row = " << row;
-    qWarning() << "column = " << column;
-    qWarning() << "top = " << result.top;
-    qWarning() << "bottom = " << result.bottom;
-    qWarning() << "left = " << result.left;
-    qWarning() << "right = " << result.right;
-
-    qWarning() << this->posStatus[column][row];
-    qWarning() << this->maze->mouseDir();
-
-if (result.right == 0 && this->posStatus[column+1][row] <= 2) {
-    qWarning() << "right";
-    if(this->maze->mouseDir() == dUP)
-        turnRight();
-    if(this->maze->mouseDir() == dDOWN)
-        turnLeft();
-    if(this->maze->mouseDir() == dLEFT) {
-        turnRight();
-        turnRight();
-    }
+if (isWallRight() == false && this->posStatus[column][row] <= 3){
+    turnRight();
     moveForward();
-    this->curColumn  += 1;
-    this->posStatus[column+1][row] += 1;
+    counter = counter + 1;
 }
-else if (result.left == 0 && this->posStatus[column-1][row] <= 2) {
-    qWarning() << "left";
-    if(this->maze->mouseDir() == dDOWN)
-        turnRight();
-    if(this->maze->mouseDir() == dUP)
-        turnLeft();
-    if(this->maze->mouseDir() == dRIGHT) {
-        turnRight();
-        turnRight();
-    }
+else if (isWallLeft() && isWallRight() && isWallForward() && this->posStatus[column][row] <= 3){
+    turnRight();
     moveForward();
-    this->curColumn  -= 1;
-    this->posStatus[column-1][row] += 1;
+    counter = 0;
+    counter3 = 0;
 }
-else if (result.top == 0 && this->posStatus[column][row+1] <= 2) {
-    qWarning() << "top";
-    if(this->maze->mouseDir() == dLEFT)
-        turnRight();
-    if(this->maze->mouseDir() == dRIGHT)
-        turnLeft();
-    if(this->maze->mouseDir() == dDOWN) {
-        turnRight();
-        turnRight();
-    }
+else if(isWallForward() == true && this->posStatus[column][row] <=3){
+    turnRight();
+    turnRight();
+    counter3 = counter3 + 1;
+}
+else {
     moveForward();
-    this->curRow += 1;
-    this->posStatus[column][row+1] += 1;
-}
-else if (result.bottom == 0 && this->posStatus[column][row-1] <= 2) {
-    qWarning() << "bottom";
-    if(this->maze->mouseDir() == dRIGHT)
-        turnRight();
-    if(this->maze->mouseDir() == dLEFT)
-        turnLeft();
-    if(this->maze->mouseDir() == dUP) {
-        turnRight();
-        turnRight();
-    }
-    moveForward();
-    this->curRow -= 1;
-    this->posStatus[column][row-1] += 1;
+    counter = 0;
+    counter3 = 0;
 }
 }
-}
-
-/*
-switch (this->maze->mouseDir()) {
-case dUP:
-    return mover->isWallRight();
-    break;
-case dDOWN:
-    return mover->isWallLeft();
-    break;
-case dLEFT:
-    return mover->isWallTop();
-    break;
-case dRIGHT:
-    return mover->isWallBottom();
-    break;
-}
-*/
