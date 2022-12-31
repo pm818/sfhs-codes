@@ -344,8 +344,6 @@ void microMouseServer::startAI()
     QPoint newPos;
     newPos.setX(1);
     newPos.setY(1);
-    this->curRow = 1;
-    this->curColumn = 1;
     this->maze->drawMouse(newPos, dUP);
     _aiCallTimer->start(MDELAY);
 }
@@ -505,16 +503,4 @@ void microMouseServer::turnRight()
         break;
     }
 }
-
-microMouseServer::values microMouseServer::getValues(int row, int column)
-{
-    values retvals;
-
-    retvals.top = this->mazeData[row][column].isWallTop();
-    retvals.bottom = this->mazeData[row][column].isWallBottom();
-    retvals.left = this->mazeData[row][column].isWallLeft();
-    retvals.right = this->mazeData[row][column].isWallRight();
-
-    return(retvals);
- }
 

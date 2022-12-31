@@ -28,35 +28,43 @@ void microMouseServer::studentAI()
  * void printUI(const char *mesg);
 */
 
-int row = this->maze->mouseX();
-int column = this->maze->mouseY();
-this->posStatus[column][row] += 1;  // append the count for visited cell
+int column = this->maze->mouseX() -1;
+int row = this->maze->mouseY() -1;
+//this->posStatus[column][row] += 1;  // append the count for visited cell
 
 qWarning() << "row =" << row;
 qWarning() << "column =" << column;
+qWarning() << this->posStatus[column][row];
 
 if (counter==3 && counter3==3)
    foundFinish();
 
-if (isWallRight() == false && this->posStatus[column][row] <= 3){
+if (isWallRight() == false && this->posStatus[column][row] <= numVisits){
     turnRight();
     moveForward();
+    this->posStatus[column][row] += 1;
     counter = counter + 1;
+    qWarning() << "loop 1";
 }
-else if (isWallLeft() && isWallRight() && isWallForward() && this->posStatus[column][row] <= 3){
+else if (isWallLeft() && isWallRight() && isWallForward() && this->posStatus[column][row] <= numVisits ){
     turnRight();
     moveForward();
+    this->posStatus[column][row] += 1;
     counter = 0;
     counter3 = 0;
+    qWarning() << "loop 2";
 }
-else if(isWallForward() == true && this->posStatus[column][row] <=3){
+else if((isWallForward() == true) && this->posStatus[column][row] <= numVisits){
     turnRight();
     turnRight();
     counter3 = counter3 + 1;
+    qWarning() << "loop 3";
 }
 else {
     moveForward();
+    this->posStatus[column][row] += 1;
     counter = 0;
     counter3 = 0;
+    qWarning() << "loop 4";
 }
 }

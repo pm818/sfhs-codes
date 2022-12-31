@@ -25,8 +25,7 @@ class microMouseServer : public QMainWindow
 public:
     explicit microMouseServer(QWidget *parent = 0);
     ~microMouseServer();
-    int curRow = 0;
-    int curColumn = 0;
+    int numVisits = 4;
     int counter = 0;
     int counter2 = 0;
     int counter3 = 0;
@@ -61,11 +60,6 @@ private:
     void printUI(const char *mesg);
 
     int posStatus[MAZE_WIDTH][MAZE_HEIGHT];
-
-    struct values{
-        int top,bottom,left,right;
-    };
-    values getValues(int, int);
 
     QTimer *_comTimer;
     QTimer *_aiCallTimer;
